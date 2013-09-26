@@ -1776,7 +1776,6 @@ HOCalibAnalyzer::endJob() {
     TCanvas *c0 = new TCanvas("c0", " Pedestal vs signal", xsiz, ysiz);
 
 // Fix is done for eta-phi
-
     float mean_eta[netamx];
     float mean_phi[nphimx];
     float rms_eta[netamx];
