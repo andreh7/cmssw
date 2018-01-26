@@ -1,4 +1,4 @@
-#include "GeneratorInterface/GenFilters/interface/PythiaFilterGammaGamma.h"
+#include "GeneratorInterface/GenFilters/interface/PythiaHepMCFilterGammaGamma.h"
 #include "DataFormats/Math/interface/LorentzVector.h"
 #include "Math/GenVector/VectorUtil.h"
 //#include "CLHEP/HepMC/GenParticle.h"
@@ -14,8 +14,7 @@ using namespace std;
 using namespace HepMC;
 
 
-PythiaFilterGammaGamma::PythiaFilterGammaGamma(const edm::ParameterSet& iConfig) :
-  token_(consumes<edm::HepMCProduct>(edm::InputTag(iConfig.getUntrackedParameter("moduleLabel",std::string("generator")),"unsmeared"))),
+PythiaHepMCFilterGammaGamma::PythiaHepMCFilterGammaGamma(const edm::ParameterSet& iConfig) :
   maxEvents(iConfig.getUntrackedParameter<int>("maxEvents", 100000)),
   ptSeedThr(iConfig.getUntrackedParameter<double>("PtSeedThr")),
   etaSeedThr(iConfig.getUntrackedParameter<double>("EtaSeedThr")),
@@ -47,14 +46,14 @@ PythiaFilterGammaGamma::PythiaFilterGammaGamma(const edm::ParameterSet& iConfig)
   
 }
 
-PythiaFilterGammaGamma::~PythiaFilterGammaGamma() 
+PythiaHepMCFilterGammaGamma::~PythiaHepMCFilterGammaGamma() 
 {  
   cout << "Number of Selected Events: " << nSelectedEvents << endl;
   cout << "Number of Generated Events: " << nGeneratedEvents << endl;
   cout << "Number of Prompt photons: " << counterPrompt << endl;
 }
 
-bool PythiaFilterGammaGamma::filter(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+bool PythiaHepMCFilterGammaGamma::filter(const HepMC::GenEvent* myGenEvent) {
    
 
   if(nSelectedEvents >= maxEvents) {
@@ -64,10 +63,6 @@ bool PythiaFilterGammaGamma::filter(edm::Event& iEvent, const edm::EventSetup& i
   nGeneratedEvents++;
 
   bool accepted = false;
-
-  Handle<HepMCProduct> evt;
-  iEvent.getByToken(token_, evt);
-  myGenEvent = evt->GetEvent();
 
   std::vector<const GenParticle*> seeds, egamma, stable; 
   std::vector<const GenParticle*>::const_iterator itPart, itStable, itEn;
