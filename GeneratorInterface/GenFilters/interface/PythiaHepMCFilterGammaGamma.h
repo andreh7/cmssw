@@ -1,15 +1,16 @@
-#ifndef PYTHIAFILTERGAMMAGAMMA_h
-#define PYTHIAFILTERGAMMAGAMMA_h
+#ifndef PYTHIAHEPMCFILTERGAMMAGAMMA_h
+#define PYTHIAHEPMCFILTERGAMMAGAMMA_h
 
 //
 // Package:    GeneratorInterface/GenFilters
-// Class:      PythiaFilterGammaGamma
+// Class:      PythiaHepMCFilterGammaGamma
 // 
 // Original Author:  Matteo Sani
 //
 //
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "GeneratorInterface/Core/interface/BaseHepMCFilter.h"
 #include "FWCore/Framework/interface/EDFilter.h"
 
 #include "FWCore/Framework/interface/Event.h"
@@ -21,12 +22,14 @@
 #include "TH1D.h"
 #include "TH1I.h"
 
-class PythiaFilterGammaGamma : public edm::EDFilter {
+class PythiaHepMCFilterGammaGamma : public BaseHepMCFilter {
  public:
-  explicit PythiaFilterGammaGamma(const edm::ParameterSet&);
-  ~PythiaFilterGammaGamma();
+  explicit PythiaHepMCFilterGammaGamma(const edm::ParameterSet&);
+  ~PythiaHepMCFilterGammaGamma();
   
-  virtual bool filter(edm::Event&, const edm::EventSetup&);
+  /** @return true if this GenEvent passes the double EM enrichment
+      criterion */
+  virtual bool filter(const HepMC::GenEvent* myGenEvent);
  private:
 
   const HepMC::GenEvent *myGenEvent;
