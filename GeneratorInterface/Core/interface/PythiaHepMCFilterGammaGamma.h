@@ -17,6 +17,9 @@
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
+#include <FWCore/ParameterSet/interface/ConfigurationDescriptions.h>
+#include <FWCore/ParameterSet/interface/ParameterSetDescription.h>
+
 namespace edm {
 	  class HepMCProduct;
 }
@@ -29,6 +32,9 @@ class PythiaHepMCFilterGammaGamma : public BaseHepMCFilter {
   /** @return true if this GenEvent passes the double EM enrichment
       criterion */
   bool filter(const HepMC::GenEvent* myGenEvent) override;
+
+  void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
+
  private:
 
   const edm::EDGetTokenT<edm::HepMCProduct> token_;

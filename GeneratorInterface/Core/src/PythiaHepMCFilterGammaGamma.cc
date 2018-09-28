@@ -220,3 +220,32 @@ bool PythiaHepMCFilterGammaGamma::filter(const HepMC::GenEvent* myGenEvent) {
   return accepted;
 }
 
+void
+PythiaHepMCFilterGammaGamma::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+  // generator
+  edm::ParameterSetDescription desc;
+  desc.add<bool>("AcceptPrompts", true);
+  desc.add<double>("PtSeedThr", 5.0);
+  desc.add<int>("NTkConeSum", 4);
+  desc.add<double>("InvMassMin", 80.0);
+  desc.add<double>("EtaElThr", 2.8);
+  desc.add<double>("EtaSeedThr", 2.8);
+  desc.add<double>("EtaMaxCandidate", 3.0);
+  desc.add<double>("EnergyCut", 1.0);
+  desc.add<double>("dPhiSeedMax", 0.2);
+  desc.add<double>("dEtaSeedMax", 0.12);
+  desc.add<double>("EtaTkThr", 2.2);
+  desc.add<double>("dRNarrowCone", 0.02);
+  desc.add<double>("PtElThr", 2.0);
+  desc.add<int>("NTkConeMax", 2);
+  desc.add<double>("EtaGammaThr", 2.8);
+  desc.add<double>("PromptPtThreshold", 15.0);
+  desc.add<double>("PtMinCandidate2", 15.0);
+  desc.add<double>("PtGammaThr", 0.0);
+  desc.add<double>("PtMinCandidate1", 15.0);
+  desc.add<double>("PtTkThr", 1.6);
+  desc.add<double>("dRSeedMax", 0.0);
+  desc.add<double>("dRTkMax", 0.2);
+  desc.add<double>("InvMassMax", 14000.0);
+  descriptions.add("generator", desc);
+}
